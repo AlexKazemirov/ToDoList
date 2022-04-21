@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TableViewController: UITableViewController {
+class ToDoTableViewController: UITableViewController {
 
     var tasks = [Tasks]()
     
@@ -78,7 +78,6 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-
         return 1
     }
 
@@ -98,6 +97,17 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let myDel = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+            self.tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        myDel.image = UIImage(systemName: "trash")
+        myDel.backgroundColor = .black
+        
+        return UISwipeActionsConfiguration(actions: [myDel])
     }
     
     
