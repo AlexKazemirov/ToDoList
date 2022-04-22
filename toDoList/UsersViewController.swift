@@ -20,12 +20,7 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         users.append(Users(login: "Alex", password: "123"))
         users.append(Users(login: "John", password: "245"))
         users.append(Users(login: "Mila", password: "580"))
-        users.append(Users(login: "Alex", password: "123"))
-        users.append(Users(login: "John", password: "245"))
-        users.append(Users(login: "Alex", password: "123"))
-        users.append(Users(login: "John", password: "245"))
-        users.append(Users(login: "Alex", password: "123"))
-        users.append(Users(login: "John", password: "245"))
+       
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -47,6 +42,21 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.configure(with: model) 
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let model = users[indexPath.row]
+        performSegue(withIdentifier: "toDetail", sender: model)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toDetail", let userModel = sender as? Users {
+            let destController = segue.destination as? DetailViewController
+            destController?.users = userModel
+        }
     }
     
 }

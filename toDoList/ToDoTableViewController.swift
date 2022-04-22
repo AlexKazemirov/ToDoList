@@ -110,6 +110,10 @@ class ToDoTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [myDel])
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
     
 
