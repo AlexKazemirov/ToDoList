@@ -17,15 +17,18 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         users.append(Users(login: "Alex", password: "123"))
         users.append(Users(login: "John", password: "245"))
         users.append(Users(login: "Mila", password: "580"))
-       
+        
         
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.register(UsersTableViewCell.cellNib(), forCellReuseIdentifier: UsersTableViewCell.cellIdentifier())
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,10 +39,10 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: UsersTableViewCell.cellIdentifier(), for: indexPath) as! UsersTableViewCell
-
+        
         let model = users[indexPath.row]
         
-        cell.configure(with: model) 
+        cell.configure(with: model)
         
         return cell
     }
@@ -49,6 +52,10 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let model = users[indexPath.row]
         performSegue(withIdentifier: "toDetail", sender: model)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
